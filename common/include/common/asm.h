@@ -72,7 +72,7 @@
  * Example:
  *      _bittest(13=1101bin,1=1bin) == 0
  * Used in:
- *      FxtBits::get(uint64_t index)
+ *      FxtBits::contains(uint64_t index)
  *
  * uint8_t _bittestandreset64(int64_t* value, int64_t index)
  * Description:
@@ -92,7 +92,7 @@
  *      _bittest(value,1=1bin) == 0
  *      value == 15=1111bin
  * Used in:
- *      FxtBits::set(uint64_t index)
+ *      FxtBits::insert(uint64_t index)
  *
  * int64_t  _bswap64(int64_t value)
  * Description:

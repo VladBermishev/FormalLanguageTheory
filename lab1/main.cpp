@@ -1,37 +1,51 @@
 #include <cstdint>
 #include <iostream>
 #include <fstream>
-#include <common/fxtbits.h>
+#include <filesystem>
 #include <common/fxtbits-set.h>
 #include <common/string-extension.h>
-#include <filesystem>
+#include <common/stream-extension.h>
+#include <common/perf.h>
 
-class Constructor{
-    const char _name;
-    const std::uint32_t _params_len;
+class Grammar{
+    using set_type = FxtBitsSet<256>;
+    set_type _constructors;
+    set_type _variables;
 public:
-    Constructor() = delete;
-    explicit Constructor(const char name, const std::uint32_t params_len) noexcept : _name(name), _params_len(params_len){}
-    [[nodiscard]] inline char name() const noexcept{ return _name; }
-    [[nodiscard]] inline std::uint32_t params_len() const noexcept { return _params_len; }
-    ~Constructor() = default;
-};
-
-class Variable{
-    const char _name;
-public:
-    Variable() = delete;
-    explicit Variable( char name) noexcept: _name(name){}
-    [[nodiscard]] inline char name() const noexcept { return _name; }
-    ~Variable() = default;
+    Grammar() = default;
+    [[nodiscard]] inline bool is_constructor(const char c) const noexcept{ return _constructors.contains(c); }
+    [[nodiscard]] inline bool is_variable(const char c) const noexcept{ return _variables.contains(c); }
+    std::istream& parse_constructors(std::istream& in){
+        std::string line; std::getline(in,line);
+        for (const auto var: split(line.c_str(), line.size(),',')){
+            _constructors.insert(*var.data());
+        }
+        return in;
+    }
+    std::istream& parse_variables(std::istream& in){
+        std::string line; std::getline(in,line);
+        for (const auto var: split(line.c_str(), line.size(),',')){
+            _variables.insert(*var.data());
+        }
+        return in;
+    }
 };
 
 class Term{
-    const char _name;
+    char _name;
     std::vector<Term*> _children;
 public:
     Term(): _name(0){}
     friend std::istream& operator>>(std::istream& in, Term& term){
+        in >> term._name;
+        if (in.peek() == '('){
+            int __c = in.get();
+            while (__c != ')'){
+                term._children.push_back(new Term());
+                in >> *term._children.back();
+                __c = in.get();
+            }
+        }
         return in;
     }
     friend std::ostream& operator<<(std::ostream& out, const Term& term) noexcept{
@@ -45,10 +59,14 @@ public:
         }
         return out;
     }
+    ~Term(){
+        for(const auto& tptr: _children){ delete tptr; }
+    }
 };
 
 int main(int argc, char** argv){
-    std::istream input(std::cin.rdbuf());
+    PERF("main")
+    istream_extension input(std::cin.rdbuf());
     std::ifstream finput;
     if( argc == 2 ){
         if ( std::filesystem::exists(argv[1]) ){
@@ -58,6 +76,15 @@ int main(int argc, char** argv){
             throw std::runtime_error("File wasn't found at given filepath");
         }
     }
-
+    Grammar grammar;
+    input.lstrip("\r\n\t ").ignore(stream_max_size,'=').lstrip(" ");
+    grammar.parse_constructors(input);
+    input.lstrip("\r\n\t ").ignore(stream_max_size, '=').lstrip(" ");
+    grammar.parse_variables(input);
+    Term first_term;
+    input.lstrip("\r\n\t ").ignore(stream_max_size, ':').lstrip(" ") >> first_term;
+    Term second_term;
+    input.lstrip("\r\n\t ").ignore(stream_max_size,':').lstrip(" ") >> second_term;
+    std::cout << first_term << '\n' << second_term << '\n';
     return 0;
 }

@@ -1,0 +1,23 @@
+
+
+
+
+
+
+
+
+
+                          constructors = f(3),g(2),h(1),a(0)
+
+
+
+variables = x,y,z
+                                    First term: f(g(h(z),y),y,h(x))
+                  Second term:                                          f(x,g(x,y),z)
+
+
+
+
+
+
+
