@@ -35,6 +35,18 @@ public:
             tmp.clear_first_bit();
         }
     }
+    inline FxtBits& operator|=(const FxtBits& rhs) noexcept { _value |= rhs._value; return *this;}
+    friend inline FxtBits operator|(const FxtBits& lhs, const FxtBits& rhs) noexcept {
+        FxtBits res;
+        res = lhs._value | rhs._value;
+        return res;
+    }
+    inline FxtBits& operator&=(const FxtBits& rhs) noexcept { _value &= rhs._value; return *this;}
+    friend inline FxtBits operator&(const FxtBits& lhs, const FxtBits& rhs) noexcept{
+        FxtBits res;
+        res = lhs._value & rhs._value;
+        return res;
+    }
 };
 #else
 4class FxtBits{
