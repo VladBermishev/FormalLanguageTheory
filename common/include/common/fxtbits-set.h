@@ -59,5 +59,10 @@ public:
         for(std::uint64_t idx = 0; idx < lhs.hardware_array_size; idx++){ res._data[idx] = lhs._data[idx] & rhs._data[idx]; }
         return res;
     }
+    FxtBitsSet<max_value>& operator=(const FxtBitsSet<max_value>& rhs){
+        if (&rhs == this) return *this;
+        memcpy(_data,rhs._data,hardware_array_size << 3);
+        return *this;
+    }
 };
 typedef FxtBitsSet<256> char_bitset_type;

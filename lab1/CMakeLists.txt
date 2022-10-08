@@ -1,3 +1,4 @@
 project(lab1)
-add_executable(lab1 main.cpp)
-target_link_libraries(lab1 common)
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} common)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
