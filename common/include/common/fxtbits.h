@@ -49,7 +49,7 @@ public:
     }
 };
 #else
-4class FxtBits{
+class FxtBits{
     std::uint64_t _value;
 public:
     explicit FxtBits(const std::uint64_t value = 0) noexcept: _value(value){}
