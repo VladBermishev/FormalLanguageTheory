@@ -55,7 +55,7 @@ public:
     explicit FxtBits(const std::uint64_t value = 0) noexcept: _value(value){}
     FxtBits& operator=(const std::uint64_t value) noexcept{ _value = value;return *this;}
     inline std::uint64_t value() const noexcept{return _value;}
-    inline std::uint64_t get(const std::uint64_t index) const noexcept{"get_index_std",const std::uint64_t res = _value & (1ul << index);return res;}
+    inline std::uint8_t get(const std::uint64_t index) const noexcept{const std::uint64_t res = ( _value >> index) & 1ul ;return res;}
     inline void set(const std::uint64_t index)noexcept{_value |= (1ul << index);}
     inline void clear(const std::uint64_t index)noexcept{_value &= ~(1ul << index);}
     inline void reverse_bytes() noexcept{
@@ -91,5 +91,21 @@ public:
         return (result >> start_index) & ((1ul << len) - 1);
     }
     template<class F>
-    inline void for_each_bit(F proc) const noexcept{for(std::uint64_t idx = 0, tmp = _value; tmp; tmp >>= 1, idx++){if(tmp&1){proc(idx);}}}};
+    inline void for_each_bit(F proc) const noexcept{for(std::uint64_t idx = 0, tmp = _value; tmp; tmp >>= 1, idx++){if(tmp&1){proc(idx);}}}
+
+    inline FxtBits& operator|=(const FxtBits& rhs) noexcept { _value |= rhs._value; return *this;}
+    friend inline FxtBits operator|(const FxtBits& lhs, const FxtBits& rhs) noexcept {
+        FxtBits res;
+        res = lhs._value | rhs._value;
+        return res;
+    }
+
+    inline FxtBits& operator&=(const FxtBits& rhs) noexcept { _value &= rhs._value; return *this;}
+    friend inline FxtBits operator&(const FxtBits& lhs, const FxtBits& rhs) noexcept{
+        FxtBits res;
+        res = lhs._value & rhs._value;
+        return res;
+    }
+};
+
 #endif

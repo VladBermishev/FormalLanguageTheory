@@ -23,6 +23,8 @@ private:
 public:
     Regex() = default;
 
-    friend std::istream& operator>>(std::istream& in, Regex& regex) noexcept {}
+    friend std::istream& operator>>(std::istream& in, Regex& regex) noexcept {
+
+    }
     ~Regex(){ delete _left_node; delete _right_node; }
 };
