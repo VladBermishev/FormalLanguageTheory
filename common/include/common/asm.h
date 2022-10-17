@@ -122,7 +122,7 @@ inline std::uint64_t bextr_u64(const std::uint64_t _value,const std::uint64_t st
 inline std::uint64_t tzcnt_u64(const std::uint64_t _value) noexcept{for(std::uint64_t idx = 0,tmp = _value; tmp; idx++, tmp >>=1){if(tmp&1)return idx;}return 64ul;}
 inline std::uint64_t lzcnt_u64(const std::uint64_t _value) noexcept{for(std::int64_t idx = 63; idx >= 0; idx--){if(((_value>>idx)&1) == 1)return idx;}return 64ul;}
 inline std::uint64_t blsi_u64(const std::uint64_t _value) noexcept{for(std::uint64_t idx = 0; idx < 64; idx++){if(_value&(1ul<<idx))return (1ul << idx);}return 0ul;}
-inline std::uint64_t blsr_u64(const std::uint64_t _value) noexcept{std::uint64_t res;asm("blsr %1,%0":"=r"(res):"r"(_value));return res;}
+//inline std::uint64_t blsr_u64(const std::uint64_t _value) noexcept{std::uint64_t res;asm("blsr %1,%0":"=r"(res):"r"(_value));return res;}
 inline std::uint64_t pext_u64(const std::uint64_t _value,const std::uint64_t mask) noexcept{
     std::uint64_t result = 0;
         for(std::uint64_t idx = 0, val_idx = 0; idx < 64; ++idx){
