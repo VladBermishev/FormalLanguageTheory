@@ -106,7 +106,7 @@
  *
  */
 
-#if defined(__BMI__) && defined(__BMI2__)
+#if defined(__BMI__) && defined(__BMI2__) && defined(__GNUC__)
 inline std::uint64_t tzcnt_u64(const std::uint64_t _value) noexcept{std::uint64_t res;asm("tzcnt %1,%0": "=r"(res): "r"(_value));return res;}
 inline std::uint64_t lzcnt_u64(const std::uint64_t _value) noexcept{std::uint64_t res;asm("lzcnt %1,%0": "=r"(res): "r"(_value));return res;}
 inline std::uint64_t blsi_u64(const std::uint64_t _value) noexcept{std::uint64_t res;asm("blsi %1,%0":"=r"(res):"r"(_value));return res;}

@@ -2,7 +2,7 @@
 #include <immintrin.h>
 #include <common/asm.h>
 
-#if defined(__x86_64__) || defined(_M_X64)
+#if (defined(__x86_64__) || defined(_M_X64)) && defined(__GNUC__)
 class FxtBits{
     std::uint64_t _value;
 public:
@@ -49,7 +49,7 @@ public:
     }
 };
 #else
-4class FxtBits{
+class FxtBits{
     std::uint64_t _value;
 public:
     explicit FxtBits(const std::uint64_t value = 0) noexcept: _value(value){}
