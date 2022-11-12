@@ -54,13 +54,7 @@ std::pair<Term*, MultiEquationSet> dec(const MultiEquation::term_set_type& terms
     }
 }
 
-enum UnificationResult {
-    OK = 0,
-    TERMS_UNDEFINED,
-    UNIQUE_MULTIEQUATION_NOT_FOUND,
-    COMMON_TERM_NOT_FOUND
-};
-
+enum UnificationResult {OK = 0, TERMS_UNDEFINED, UNIQUE_MULTIEQUATION_NOT_FOUND, COMMON_TERM_NOT_FOUND};
 UnificationResult unify(const Term& lhs, const Term& rhs, MultiEquationSet& result) {
     PERF("UNIFY")
     MultiEquationSet initial_set;

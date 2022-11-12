@@ -1,5 +1,5 @@
 #pragma once
-#include <lab1/grammar.h>
+#include "grammar.h"
 #include <ostream>
 #include <vector>
 

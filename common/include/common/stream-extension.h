@@ -21,15 +21,15 @@ std::basic_istream<_CharT, _Traits>& lstrip(std::basic_istream<_CharT, _Traits>&
     return in;
 }
 
-template<typename CharT, typename Traits>
-class istream_extension : public std::basic_istream<CharT, Traits>{
+template<typename CharT, typename Traits = std::char_traits<CharT> >
+class basic_istream_extension : public std::basic_istream<CharT, Traits>{
     typedef typename Traits::int_type int_type;
 public:
 
-    explicit istream_extension(std::basic_streambuf<CharT,Traits>* sb): std::basic_istream<CharT, Traits>(sb){}
+    explicit basic_istream_extension(std::basic_streambuf<CharT,Traits>* sb): std::basic_istream<CharT, Traits>(sb){}
 
     template<std::uint8_t sz>
-    istream_extension& lstrip(const char (&delims)[sz]){
+    basic_istream_extension& lstrip(const char (&delims)[sz]){
         if (this->eof()) { return *this; }
         FxtBitsSet<256> delims_set;
         for(std::uint8_t idx = 0; idx < sz; idx++ ){ delims_set.insert(delims[idx]); }
@@ -43,10 +43,11 @@ public:
         }
         return *this;
     }
-    istream_extension& ignore(std::streamsize n, int_type delim){
+    basic_istream_extension& ignore(std::streamsize n, int_type delim){
         std::basic_istream<CharT, Traits>::ignore(n, delim);
         return *this;
     }
 
 };
+typedef basic_istream_extension<char> istream_extension;
 

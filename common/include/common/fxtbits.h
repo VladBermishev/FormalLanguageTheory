@@ -47,6 +47,9 @@ public:
         res = lhs._value & rhs._value;
         return res;
     }
+    friend inline FxtBits operator-(const FxtBits& lhs, const FxtBits& rhs) noexcept{
+        return FxtBits(lhs._value & ~rhs._value);
+    }
 };
 #else
 class FxtBits{
@@ -105,6 +108,10 @@ public:
         FxtBits res;
         res = lhs._value & rhs._value;
         return res;
+    }
+
+    friend inline FxtBits operator-(const FxtBits& lhs, const FxtBits& rhs) noexcept{
+        return FxtBits(lhs.get_extracted_value(~rhs._value));
     }
 };
 
