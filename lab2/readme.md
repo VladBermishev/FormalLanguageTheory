@@ -1,4 +1,4 @@
-# [An Efficient Unification Algorithm](https://dl.acm.org/doi/pdf/10.1145/357162.357169)
+# Нормализация Regex по пользовательским правилам переписывания
 
 ## Build
 Debug
