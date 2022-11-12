@@ -21,7 +21,6 @@ regex := (<regex><binary><regex>)|char<unary>|(<regex>)<unary> | ε
 binary := '|' | ε
 unary := '*' | ε
 ```
-Program reads input both from stdin and from file
 
 ## Run
 ./lab2 $1 $2 $3
