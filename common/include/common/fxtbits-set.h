@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <cstring>
 #include <common/fxtbits.h>
+#include <limits>
 
 template< std::uint64_t max_value >
 class FxtBitsSet{

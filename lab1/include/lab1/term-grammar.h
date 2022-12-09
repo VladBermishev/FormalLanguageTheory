@@ -3,12 +3,12 @@
 #include "common/string-extension.h"
 #include "common/stream-extension.h"
 
-class Grammar {
+class TermGrammar {
     char_bitset_type _constructors;
     char_bitset_type _variables;
     char_bitset_type _constants;
 public:
-    Grammar() = default;
+    TermGrammar() = default;
 
     [[nodiscard]] inline const char_bitset_type& constructors() const noexcept{ return _constructors; }
     [[nodiscard]] inline const char_bitset_type& variables() const noexcept{ return _variables; }

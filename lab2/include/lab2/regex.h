@@ -3,7 +3,7 @@
 #include <functional>
 #include <stack>
 #include <common/fxtbits-set.h>
-#include <lab1/grammar.h>
+#include <lab1/term-grammar.h>
 
 class Regex{
 public:
@@ -102,8 +102,8 @@ public:
      *            0            variable
      *            > 0          constant
      */
-    Grammar grammar(std::function<int(const char)> f) const noexcept{
-        Grammar result;
+    TermGrammar grammar(std::function<int(const char)> f) const noexcept{
+        TermGrammar result;
         std::stack<const Regex*> tree_pointers;
         tree_pointers.push(this);
         while (!tree_pointers.empty()){
@@ -142,6 +142,7 @@ public:
     }
 
     bool operator!=(const Regex& regex) const noexcept{ return !(*this == regex); }
+
     friend std::ostream& operator<<(std::ostream& out, Regex& regex) noexcept{
         switch (regex._type) {
             case node_type::BINARY:{

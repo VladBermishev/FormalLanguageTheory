@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
             throw std::runtime_error("File wasn't found at given filepath");
         }
     }
-    Grammar grammar;
+    TermGrammar grammar;
     input.lstrip("\r\n\t ").ignore(stream_max_size, '=').lstrip(" ");
     grammar.parse_constructors(input);
     input.lstrip("\r\n\t ").ignore(stream_max_size, '=').lstrip(" ");

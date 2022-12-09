@@ -10,7 +10,7 @@
 #include <lab2/rewrite-rules.h>
 using namespace std::chrono_literals;
 
-void setup_input_stream(std::ifstream& fin, istream_extension& in, const std::string& source) noexcept{
+void setup_input_stream(std::ifstream& fin, istream_extension& in, const std::string& source) {
     if (source != "stdin") {
         if (std::filesystem::exists(source)) {
             fin.open(source);

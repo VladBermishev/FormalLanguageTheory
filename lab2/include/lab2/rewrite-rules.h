@@ -2,22 +2,22 @@
 #include <vector>
 #include <exception>
 #include <common/string-extension.h>
-#include <lab1/grammar.h>
+#include <lab1/term-grammar.h>
 #include <lab2/regex.h>
 #include <lab2/rule.h>
 
 class RewriteRules{
     typedef std::vector<Rule>::const_iterator const_iterator;
-    const Grammar _grammar;
+    const TermGrammar _grammar;
     std::vector<Rule> _rules;
 public:
-    explicit RewriteRules(Grammar grammar): _grammar(std::move(grammar)){}
+    explicit RewriteRules(TermGrammar grammar): _grammar(std::move(grammar)){}
 
-    void push_back(Rule&& rule) noexcept{
-        const Grammar lhs_grammar(rule.lhs().grammar([&grammar = _grammar](const char c){
+    void push_back(Rule&& rule) {
+        const TermGrammar lhs_grammar(rule.lhs().grammar([&grammar = _grammar](const char c){
             return (Regex::is_symbol(c)) ? (grammar.is_constant(c) ? 1 : 0) : -1;
         }));
-        const Grammar rhs_grammar(rule.rhs().grammar([&grammar = _grammar](const char c){
+        const TermGrammar rhs_grammar(rule.rhs().grammar([&grammar = _grammar](const char c){
             return (Regex::is_symbol(c)) ? (grammar.is_constant(c) ? 1 : 0) : -1;
         }));
 

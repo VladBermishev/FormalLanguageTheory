@@ -1,5 +1,5 @@
 #pragma once
-#include "grammar.h"
+#include "term-grammar.h"
 #include <ostream>
 #include <vector>
 
@@ -17,7 +17,7 @@ public:
         if (type) _variables.insert(_name);
     }
 
-    void identify(const Grammar& grammar) {
+    void identify(const TermGrammar& grammar) {
         if (_children.empty()) {
             if (grammar.is_variable(_name)) _variables.insert(_name);
         } else {

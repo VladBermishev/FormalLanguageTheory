@@ -117,7 +117,7 @@ public:
     }
 
     parser_value operator[](const std::uint32_t index) const {
-        if (index >= 0 && index < _values.size())
+        if (index < _values.size())
             return _values[index];
         else {
             std::cerr << _desc << '\n';

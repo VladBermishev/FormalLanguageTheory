@@ -24,7 +24,7 @@ std::vector<std::string_view> split(const char* s, const uint64_t len, const cha
 
 template<std::uint64_t sz>
 std::vector<std::string_view> tokenize(const char* s, const uint64_t len, const char (&separators)[sz] ){
-
+    return {};
 }
 
 std::string join(std::vector<std::string>::const_iterator b, std::vector<std::string>::const_iterator e, const char separator) {
