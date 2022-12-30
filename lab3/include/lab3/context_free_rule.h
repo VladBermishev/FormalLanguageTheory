@@ -27,8 +27,10 @@ public:
         return in;
     }
 
-    inline const GrammarUnit& lhs() const noexcept{ return _lhs; }
+    inline GrammarUnit lhs() const noexcept{ return _lhs; }
+    inline GrammarUnit& lhs() noexcept { return _lhs; }
     inline const std::list<GrammarUnit>& rhs() const noexcept{ return _rhs; }
+    inline std::list<GrammarUnit>& rhs() noexcept{ return _rhs; }
 
 private:
     static std::string read_nterm(istream_extension& in) noexcept{

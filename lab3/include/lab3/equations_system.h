@@ -1,18 +1,14 @@
 #pragma once
+#include <lab3/context_free_grammar.h>
 #include <lab3/equation.h>
 #include <unordered_set>
 #include <algorithm>
 
 
 class EquationsSystem {
-    std::unordered_set<std::string> _terminals;
-    std::unordered_set<std::string> _nonterminals;
     std::vector<Equation> _equations;
 public:
     explicit EquationsSystem(const ContextFreeGrammar& grammar) {
-        _terminals = grammar.terminals();
-        _nonterminals = grammar.nonterminals();
-
         for (const auto& rule: grammar.rules()) {
             if (auto it = std::find_if(_equations.begin(),
                                        _equations.end(),
@@ -24,7 +20,8 @@ public:
                 _equations.back().append(rule.rhs());
             }
         }
-
+        if(grammar.nonterminals().size() != _equations.size())
+            throw std::logic_error("Some nonterminals aren't defined");
     }
 
     EquationsSystem& commutative_image() {
@@ -39,6 +36,9 @@ public:
                     if(i != j) _equations[j].substitute(_equations[i]);
             }
         }
+        for(std::uint32_t i = 0; i < _equations.size(); i++)
+            _equations[i].rhs().relax(_equations[i].lhs());
+        return *this;
     }
 
     auto begin() const noexcept { return _equations.cbegin(); }
