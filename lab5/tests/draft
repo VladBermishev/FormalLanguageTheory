@@ -1,0 +1,4 @@
+User -> ; User.attr = (FN,MN,LN,BD), User.ident = (Username)
+Message -> ; Message.attr = (Message, CreationDate), Message.ident = (Username, CreationDate)
+User -> Message ; User.cardinality = O-N, Message.cardinality = 1-1, Message.ident -> User.ident
+User -> (Graduate, Undergraduate) ; Graduate.attr = (...), Undergraduate.attr = (...),

@@ -5,13 +5,13 @@ Debug
 ```sh
 mkdir build ; cd build
 cmake ../ -DBUILD=DEBUG
-cmake --build . --target lab2 -j 3
+cmake --build . --target lab3 -j 3
 ```
 Release
 ```sh
 mkdir build ; cd build
 cmake ../ -DBUILD=Release
-cmake --build . --target lab2 -j 3
+cmake --build . --target lab3 -j 3
 ```
 ## Input
 ### Format
