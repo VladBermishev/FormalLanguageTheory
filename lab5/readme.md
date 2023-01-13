@@ -1,5 +1,8 @@
-
-
+## Dependencies
+libgraphviz
+```sh
+sudo apt-get install libgraphviz-dev
+```
 ## Build
 Debug
 ```sh
