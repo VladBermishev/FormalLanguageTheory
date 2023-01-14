@@ -24,9 +24,30 @@ public:
     inline bool& is_weak() noexcept { return _is_weak; }
 
     inline bool operator==(const Entity& rhs) const noexcept{ return _name == rhs._name;}
-    Agnode_t* construct_node(Agraph_t* graph) const noexcept {
+    Agnode_t* construct_node(Agraph_t* graph) noexcept {
         Agnode_t* result;
-        /* ... */
+        result = agnode(graph, _name.data(), 1);
+        std::string _label;
+        agsafeset(result, "style", "filled", "");
+        for(const auto& identifier: _identifiers){
+            _label += identifier.name() + "\\n";
+        }
+        _label += "|";
+        for(const auto& attribute: _attributes){
+            _label += attribute.name() + "\\n";
+        }
+        _label = "{" + _label + "}";
+        if (_is_weak){
+            agsafeset(result, "shape", "Mrecord", "");
+            agsafeset(result, "fillcolor", "lightcyan", "");
+        }else{
+            agsafeset(result, "shape", "record", "");
+            agsafeset(result, "fillcolor", "lightgreen", "");
+        }
+        agsafeset(result, "label", _label.data(), "");
+
+        agsafeset(result, "xlabel", _name.data(), "");
+
         return result;
     }
 };

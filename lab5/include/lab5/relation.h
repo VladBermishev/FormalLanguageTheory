@@ -56,9 +56,47 @@ public:
         return _lhs == rhs._lhs && lhs_dest == rhs_dest && _lhs_cardinality == rhs._lhs_cardinality &&
                _rhs_cardinality == rhs._rhs_cardinality;
     }
+    static std::string  cardinality_to_format(RelationCardinality cardinality){
+        if (cardinality == Optional){
+            return "odot";
+        }else if( cardinality == Mandatory){
+            return "tee";
+        }else{
+            return "oinv";
+        }
+    }
+
+    static std::string cardinality_format(std::pair<RelationCardinality, RelationCardinality> cardinality){
+        std::string result;
+        result+= cardinality_to_format(cardinality.second);
+        result+= cardinality_to_format(cardinality.first);
+        return result;
+    }
+
     Agedge_t* construct_edge(Agraph_t* graph, std::unordered_map<std::string, Agnode_t*> verticies) const noexcept{
         Agedge_t* result;
-        /* ... */
+        if (_rhs.size() > 1){
+            Agnode_t* intermidiate_node = agnode(graph, (_lhs + *_rhs.begin()).data(), 1);
+            agsafeset(intermidiate_node, "shape", "circle", "");
+            std::string tmp = _is_subtypes_inclusive?"X":"";
+            agsafeset(intermidiate_node, "label", tmp.data(), "");
+            Agedge_t* intermidiate_edge = agedge(graph, verticies[_lhs], intermidiate_node, (_lhs + *_rhs.begin()).data(), 1);
+            for(const auto& entity: _rhs){
+                Agedge_t* buffer =  agedge(graph, intermidiate_node, verticies[entity], (_lhs + entity +"1").data(), 1);
+            }
+        }else{
+            result = agedge(graph, verticies[_lhs], verticies[*_rhs.begin()], "abc", 1);
+            agsafeset(result, "dir", "both", "");
+            if(id_dependence() == None){
+                agsafeset(result, "style", "dashed", "");
+            }
+            std::string lhs_format = cardinality_format(_lhs_cardinality);
+            std::string rhs_format = cardinality_format(_rhs_cardinality);
+            agsafeset(result, "arrowhead", lhs_format.data(), "");
+            agsafeset(result, "arrowtail", rhs_format.data(), "");
+        }
+
+
         return result;
     }
 };

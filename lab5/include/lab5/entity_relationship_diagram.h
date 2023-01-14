@@ -211,12 +211,12 @@ public:
         Agraph_t *g;
         g = agopen("g", Agdirected, nullptr);
         std::unordered_map<std::string, Agnode_t*> vertices;
-        for(const auto& entity: _entities)
+        for(auto& entity: _entities)
             vertices[entity.name()] = entity.construct_node(g);
         std::vector<Agedge_t*> edges;
         for(const auto& relation: _relations)
             edges.push_back(relation.construct_edge(g, vertices));
-        gvLayout(gvc, g, "neato");
+        gvLayout(gvc, g, "dot");
         gvRenderFilename(gvc, g, "svg", path.c_str());
         gvFreeLayout(gvc, g);
         agclose(g);
