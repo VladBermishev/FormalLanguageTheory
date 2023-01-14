@@ -1,0 +1,5 @@
+User -> ; User.attr = (FN,MN,LN,BD), User.ident = (Username)
+Message -> ; Message.attr = (Message, CreationDate), Message.ident = (Username, CreationDate)
+User -> Message ; User.cardinality = 0-N, Message.cardinality = 1-1, Message.ident ::= User.ident
+// "type-subtype" template
+User -> Graduate | Undergraduate ; Graduate.attr = (...), Undergraduate.attr = (...), User.subtypes = [ inclusive | exclusive ]

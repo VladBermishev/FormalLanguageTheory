@@ -3,6 +3,10 @@
 #include <istream>
 constexpr auto stream_max_size = std::numeric_limits<std::streamsize>::max();
 
+bool is_alpha(const char ch) noexcept{
+    return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9');
+}
+
 template<typename _CharT, typename _Traits, std::uint8_t sz>
 std::basic_istream<_CharT, _Traits>& lstrip(std::basic_istream<_CharT, _Traits>& in, const char (&delims)[sz]){
     if (in.eof()) { return in; }
