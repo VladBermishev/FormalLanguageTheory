@@ -30,7 +30,12 @@ or
 ```
 #### Result
 ![ER-model](https://github.com/VladBermishev/FormalLanguageTheory_Labs/blob/master/lab5/tests/1-result/ER_model.svg "ER-model")
+
+ER-Diagram
+
 ![Relation-model](https://github.com/VladBermishev/FormalLanguageTheory_Labs/blob/master/lab5/tests/1-result/Relational_model.svg "Relation-model")
+
+Relation diagram
 
 |Relationship |              |Cardinality   |     |     |
 |-------------|--------------|--------------|-----|-----|
@@ -43,3 +48,5 @@ or
 |Message      | Message_Photo |Identifying   | N-1 | 0-1 |
 |Message_Photo| Photo        |Identifying   | 1-N | 1-1 |
 |Message      | User         |Nonidentifying| 1-1 | 1-1 |
+
+Cardinality table
