@@ -29,8 +29,8 @@ or
 ./lab5 tests/1
 ```
 #### Result
-![ER-model](https://picsum.photos/800/600 "ER-model")
-![Relation-model](https://picsum.photos/800/600 "Relation-model")
+![ER-model](https://github.com/VladBermishev/FormalLanguageTheory_Labs/blob/master/lab5/tests/1-result/ER_model.svg "ER-model")
+![Relation-model](https://github.com/VladBermishev/FormalLanguageTheory_Labs/blob/master/lab5/tests/1-result/Relational_model.svg "Relation-model")
 
 |Relationship |              |Cardinality   |     |     |
 |-------------|--------------|--------------|-----|-----|
