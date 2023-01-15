@@ -1,0 +1,10 @@
+Relationship,,Cardinality,,
+Parent,Child,Type,MAX,MIN
+User,User_User,Identifying,N-1,0-1
+User_User,User,Identifying,1-N,1-0
+User,Credentials,Identifying,1-1,1-1
+User,Message,Identifying,N-1,0-1
+User,Photo,Nonidentifying,N-1,0-1
+Message,Message_Photo,Identifying,N-1,0-1
+Message_Photo,Photo,Identifying,1-N,1-1
+Message,User,Nonidentifying,1-1,1-1

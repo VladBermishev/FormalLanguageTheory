@@ -330,5 +330,4 @@ private:
         }
         return result;
     }
-
 };
