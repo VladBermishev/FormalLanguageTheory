@@ -1,4 +1,11 @@
 User -> ; User.attr = (FN,MN,LN,BD), User.ident = (Username)
-Message -> ; Message.attr = (Message, CreationDate), Message.ident = (Username, CreationDate)
+Message -> ; Message.attr = (Message), Message.ident = (Username, CreationDate)
+Credentials -> ; Credentials.ident = (Username), Credentials.attr = (Password)
+Photo -> ; Photo.ident = (Location), Photo.attr = (Name, Description, Size)
+User -> User; User.cardinality = 0-N, User.cardinality = 0-N, User.ident ::= User.ident
+User -> Credentials; User.cardinality = 1-1, Credentials.cardinality = 1-1, Credentials.ident ::= User.ident
 User -> Message ; User.cardinality = 0-N, Message.cardinality = 1-1, Message.ident ::= User.ident
-User -> Graduate | Undergraduate ; Graduate.attr = (...), Undergraduate.attr = (...), User.subtypes = inclusive
+User -> Photo ; User.cardinality = 0-N, Photo.cardinality = 1-1
+User -> Graduate | Undergraduate ; Graduate.attr = (SMTH1,SMTH2,SMTH3), Undergraduate.attr = (SMTH4,SMTH5), User.subtypes = inclusive
+Message -> Photo; Photo.cardinality = 1-N, Message.cardinality = 0-N
+Message -> User; Message.cardinality = 1-1, User.cardinality = 1-1

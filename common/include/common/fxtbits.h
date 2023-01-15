@@ -50,6 +50,8 @@ public:
     friend inline FxtBits operator-(const FxtBits& lhs, const FxtBits& rhs) noexcept{
         return FxtBits(lhs._value & ~rhs._value);
     }
+    friend inline bool operator<(const FxtBits& lhs, const FxtBits& rhs) noexcept{ return lhs._value < rhs._value; }
+    friend inline bool operator==(const FxtBits& lhs, const FxtBits& rhs) noexcept{ return lhs._value == rhs._value; }
 };
 #else
 class FxtBits{
@@ -113,6 +115,9 @@ public:
     friend inline FxtBits operator-(const FxtBits& lhs, const FxtBits& rhs) noexcept{
         return FxtBits(lhs.get_extracted_value(~rhs._value));
     }
+
+    friend inline bool operator<(const FxtBits& lhs, const FxtBits& rhs) noexcept{ return lhs._value < rhs._value; }
+    friend inline bool operator==(const FxtBits& lhs, const FxtBits& rhs) noexcept{ return lhs._value == rhs._value; }
 };
 
 #endif

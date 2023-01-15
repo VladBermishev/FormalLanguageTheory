@@ -33,29 +33,13 @@ int main(int argc, const char* argv[]){
     oss << std::put_time(&tm, "%d-%m-%Y-%H-%M-%S");
     std::string ER_filename = "ER_model-" + oss.str() + ".svg";
     std::string Rel_filename = "Relational_model-" + oss.str() + ".svg";
-    std::filesystem::path ER_path = argv[0], Rel_path = argv[0];
+    std::string csv_table_filename = "Cardinalities_table_of_Rel_model-" + oss.str() + ".csv";
+    std::filesystem::path ER_path = argv[0], Rel_path = argv[0], Table_path = argv[0];
     ER_path.replace_filename(ER_filename);
     Rel_path.replace_filename(Rel_filename);
+    Table_path.replace_filename(csv_table_filename);
     diagram.save_svg(ER_path);
     diagram.to_relational_model().save_svg(Rel_path);
+    diagram.save_cardinalities_table_to_csv(Table_path);
     return 0;
 }
-
-/*
-    Agraph_t *g;
-    Agnode_t *n, *m;
-    Agedge_t *e;
-    Agsym_t *a;
-    GVC_t *gvc;
-    gvc = gvContext();
-    g = agopen("g", Agdirected, nullptr);
-    n = agnode(g, "n", 1);
-    m = agnode(g, "m", 1);
-    e = agedge(g, n, m, 0, 1);
-    agsafeset(n, "color", "red", "");
-    gvLayout(gvc, g, "dot");
-    gvRenderFilename(gvc, g, "svg", "example.svg");
-    gvFreeLayout(gvc, g);
-    agclose(g);
-    gvFreeContext(gvc)
-*/
